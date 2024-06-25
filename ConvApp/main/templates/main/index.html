@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+  <div class="text-center">
+    <h1 class="display-4">Конвертация STL в G-Code</h1>
+  </div>
+  <div class="form-container">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-success btn-lg" type="submit">Загрузить файл</button>
+    </form>
+    {% if show_gcode %}
+        <button id="download-gcode-btn" class="btn btn-primary btn-lg">Скачать G-Code</button>
+        <script>
+        document.getElementById('download-gcode-btn').addEventListener('click', function() {
+          var gcodeOutput = document.getElementById('gcode-output').value;
+          var blob = new Blob([gcodeOutput], {type: 'application/octet-stream'});
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = 'output.gcode';
+          a.click();
+        });
+      </script>
+      {% endif %}
+  </div>
+  {% if show_gcode %}
+    <div class="gcode-output-container">
+      <textarea id="gcode-output" rows="20" cols="80" readonly style="overflow-x: auto; white-space: pre;">
+        {{ gcode_output }}
+      </textarea>
+    </div>
+  {% endif %}
+{% endblock %}
+
+# css внешний вид  - завтра / загрузка на хостинг
+# проверка ВАЛИДАЦИИ
+# презентацию в понедельник
+# проверка
+#Перенос страниц
+# Локальная сеть
+#изменить pdf на количество страниц(антиплагиат)
+#ограничить размер загружаемых файлов
+#НАСТРОЙКА РАзмера файлов
+ц сокращения времени  на погодвку печати изделий на 3d принтере за счет разработки веб сервиса для конвертации stl файлов в код для устройств с числовым программным управлением
+3 задачи  по главам
+
+25, в 15:00 до
